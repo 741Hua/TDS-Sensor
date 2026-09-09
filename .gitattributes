@@ -1,0 +1,12 @@
+
+# Enforce standard LF line endings for all source and tool files
+*.c -text
+*.h -text
+*.cpp -text
+*.hpp -text
+*.ioc -text
+*.ld -text
+*.launch -text
+*.cfg -text
+*.s -text
+*.txt -text

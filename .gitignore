@@ -1,0 +1,23 @@
+# Git ignore file for this subtree
+
+# STM32 Build outputs
+Debug/
+Release/
+*.elf
+*.hex
+*.bin
+*.map
+*.o
+*.su
+*.d
+
+
+# User specific Data
+.metadata/
+.remote/
+.settings/
+remote-connections.xml
+
+# Random files
+Blink\ Debug.cfg
+
