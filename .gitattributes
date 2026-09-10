@@ -1,0 +1,29 @@
+# KiCad project files — keep line endings untouched
+*.kicad_pro   binary
+*.kicad_sch   binary
+*.kicad_pcb   binary
+*.kicad_sym   binary
+*.kicad_mod   binary
+*.kicad_wks   binary
+
+# KiCad project local settings
+*.kicad_prl   binary
+*.prl         binary
+
+# KiCad backups
+*.sch-bak     binary
+*-backups/**  binary
+
+# KiCad footprint and symbol tables
+fp-info-cache binary
+sym-lib-table binary
+fp-lib-table  binary
+
+# 3D models
+*.step        binary
+*.stp         binary
+
+# Images
+*.png         binary
+*.jpg         binary
+*.jpeg        binary

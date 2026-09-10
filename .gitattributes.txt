@@ -1,3 +1,0 @@
-*.step binary
-*.stp binary
-*.png binary

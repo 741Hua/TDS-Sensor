@@ -31,7 +31,7 @@ _autosave-*
 # (Highly recommended: only commit Gerbers when tagging a final production release)
 
 # Gerber/Drill output directories (common folder names)
-/JLC_Gerbers/
+/Hardware/JLC_Gerbers/
 
 # Bill of Materials and position files
 *.csv
