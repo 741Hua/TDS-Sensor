@@ -76,9 +76,12 @@ Each stage includes structured procedures with defined success criteria.
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
 | 1 | Connect ST‑Link SWCLK, SWDIO 3.3 V, and GND pins to the UUT on connector J2| ST‑Link connects to MCU without errors |  |
-| 2 | Flash blink firmware (PC13 LED) | Firmware loads successfully |  |
-| 3 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s |  |
-| 4 | Measure 3.3 V rail with DMM at C4 | Voltage is within 3.2–3.4 V |  |
+| 2 | Measure 3.3V rail with DMM at C4 | Voltage is within 3.2–3.4V |  |
+| 3 | Measure 3V rail with DMM at C18 | Voltage is within 2.9–3.1V |  |
+| 4 | Measure -3V rail with DMM at C20 | Voltage is within (-3.1)–(-2.9)V |  |
+| 5 | Flash blink firmware (PC13 LED) | Firmware loads successfully |  |
+| 6 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s |  |
+
 
 ---
 
@@ -88,9 +91,14 @@ Each stage includes structured procedures with defined success criteria.
 |--------|-------------|------------------|-----|
 | 1 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Disconnect 3.3V pin | Board remains unpowered until 12V is applied |  |
 | 2 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) nad pin 4 (GND)|  |
-| 3 | Observe PC13 LED | LED blinks at a rate of approx 0.5s |
-| 3 | Measure 5V rail with the DMM| Votlage is within 4.9–5.1V |  |
-| 4 | Measure 3.3V rail with the DMM| Voltage is within 3.2–3.4V |  |
+| 3 | Measure 12V rail with the DMM | Voltage is within 11.9-12.1V |  |
+| 4 | Measure 5V rail with the DMM| Votlage is within 4.9–5.1V |  |
+| 5 | Measure 3.3V rail with the DMM| Voltage is within 3.2–3.4V |  |
+| 6 | Measure 3V rail with DMM at C18 | Voltage is within 2.9–3.1V |  |
+| 7 | Measure -3V rail with DMM at C20 | Voltage is within (-3.1)–(-2.9)V |  |
+| 8 | Observe PC13 LED | LED blinks at a rate of approx 0.5s |
+| 9 | Flash blink firmware (PC13 LED) | Firmware loads successfully |  |
+| 10 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s |  |
 
 ---
 
