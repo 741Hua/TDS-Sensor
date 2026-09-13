@@ -75,7 +75,10 @@ Each stage includes structured procedures with defined success criteria.
 
 #### Setup
 
-![PCB board](../assets/images/ST-Link_Power_Up_Setup.png)
+<figure style="text-align: center;">
+  <img src="../assets/images/ST-Link_Power_Up_Setup.png" alt="Test Setup">
+  <figcaption>Figure 1: ST-Link Power-Up Test Setup</figcaption>
+</figure>
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
@@ -91,6 +94,13 @@ Each stage includes structured procedures with defined success criteria.
 ---
 
 ## 5.2 External 12 V Power‑Up Procedure
+
+#### Setup
+
+<figure style="text-align: center;">
+  <img src="../assets/images/12V_Power_Up_Setup.png" alt="Test Setup">
+  <figcaption>Figure 1: External 12V Power-Up Test Setup</figcaption>
+</figure>
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
@@ -111,6 +121,13 @@ Each stage includes structured procedures with defined success criteria.
 
 ## 5.3 RS‑485 Modbus Communication Procedure
 
+#### Setup
+
+<figure style="text-align: center;">
+  <img src="../assets/images/RS-485_Modbus_Comm_Test_Setup.png" alt="Test Setup">
+  <figcaption>Figure 1: External 12V Power-Up Test Setup</figcaption>
+</figure>
+
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
 | 1 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Do not conect the 3.3V pin | Board remains unpowered until 12V is applied |  |
@@ -128,6 +145,13 @@ Each stage includes structured procedures with defined success criteria.
 
 ## 5.4 Analog Front End + ADC Verification Procedure
 
+#### Setup
+
+<figure style="text-align: center;">
+  <img src="../assets/images/AnalogFrontEnd_ADC_Verification_Setup.png" alt="Test Setup">
+  <figcaption>Figure 1: External 12V Power-Up Test Setup</figcaption>
+</figure>
+
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
 | 1 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Do not conect the 3.3V pin | Board remains unpowered until 12V is applied |  |
@@ -136,7 +160,7 @@ Each stage includes structured procedures with defined success criteria.
 | 3 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) and pin 4 (GND)|  |
 | 4 | Measure the 3.3V supply voltage with the DMM at C6 (close to the MCU) and record it (V<sub>in</sub>). | 3.2V-3.4V is measured and recorded | |
 | 5 | Calculate the ADC to Voltage conversion factor using K = 10<sup>4</sup> x 4095/V<sub>in</sub> | Conversion factor is about equal to the ideal conversion factor of 10<sup>4</sup> x 3.3V/4095 = 8.0586 |  |
-| 1 | Update the ADC + Modbus Firmware with your conversion factor in: <code style="background: #fafafa; padding: 3px 6px; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; font-size: 85%; border: 1px solid #e5e5e6; color: #383a42;"><span style="color: #383a42;">v_reading</span> <span style="color: #a626a4;">=</span> <span style="color: #383a42;">sensor_reading</span> <span style="color: #a626a4;">*</span> <span style="color: #d19a66;">8.105f</span>;</code> | Firmware builds with no errors |  | 
+| 1 | Update the ADC + Modbus Firmware with your conversion factor in: `v_reading = sensor_reading * 8.105f;` | Firmware builds with no errors |  | 
 | 1 | Flash ADC + Modbus firmware | Firmware loads successfully |  |
 | 2 | Measure ADC input voltage with DMM at D8 and record it.| Stable reading; no unexpected fluctuations |  |
 | 3 | Read Modbus‑reported voltage (represented in hex value, with decimal converter number in units of 10<sup>-4</sup> V) | Log shows "RX: 01 04 02 XX XX YY YY", with XX XX being the voltage value. |  |
