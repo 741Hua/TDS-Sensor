@@ -2,7 +2,7 @@
 **Document ID:** TDS-DTP-001
 **Revision:** 1.0  
 **Author:** Jairo Huaylinos
-**Date:** 2026‑09‑10  
+**Date:** 2026‑09‑12  
 
 ---
 
@@ -73,6 +73,10 @@ Each stage includes structured procedures with defined success criteria.
 
 ## 5.1 ST‑Link Power‑Up Procedure
 
+#### Setup
+
+![PCB board](../assets/images/ST-Link_Power_Up_Setup.png)
+
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
 | 1 | Connect ST‑Link SWCLK, SWDIO 3.3 V, and GND pins to the UUT on connector J2| ST‑Link connects to MCU without errors |  |
@@ -82,6 +86,7 @@ Each stage includes structured procedures with defined success criteria.
 | 5 | Flash blink firmware (PC13 LED) | Firmware loads successfully |  |
 | 6 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s |  |
 
+### Notes
 
 ---
 
@@ -100,6 +105,8 @@ Each stage includes structured procedures with defined success criteria.
 | 9 | Flash blink firmware (PC13 LED) | Firmware loads successfully |  |
 | 10 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s |  |
 
+### Notes
+
 ---
 
 ## 5.3 RS‑485 Modbus Communication Procedure
@@ -114,6 +121,8 @@ Each stage includes structured procedures with defined success criteria.
 | 6 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
 | 7 | Monitor Modbus TX and RX frames on the Log| Log shows "TX: 01 04 00 00 00 01 31 ca" and "RX: 01 04 02 XX XX XX XX" |  |
 | 8 | Verify RX payload and CRC | For example, if the UUT's input register at address 1 is set to 2, then the log should show "RX: 01 04 02 00 02 38 f1". If you have a different payload configured validate the correct payload and CRC bytes using https://valtoris.com/tools/modbus-rtu-crc-16-calculator-hex-checksum-debugging-tool/?hex=11%2004%2002%2000%200A |  |
+
+### Notes
 
 ---
 
@@ -132,6 +141,8 @@ Each stage includes structured procedures with defined success criteria.
 | 2 | Measure ADC input voltage with DMM at D8 and record it.| Stable reading; no unexpected fluctuations |  |
 | 3 | Read Modbus‑reported voltage (represented in hex value, with decimal converter number in units of 10<sup>-4</sup> V) | Log shows "RX: 01 04 02 XX XX YY YY", with XX XX being the voltage value. |  |
 | 4 | Compare DMM vs Modbus values | Values are reasonably close (pre‑calibration tolerance) |  |
+
+### Notes
 
 ---
 
