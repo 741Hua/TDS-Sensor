@@ -73,12 +73,12 @@ Each stage includes structured procedures with defined success criteria.
 
 ## 5.1 ST‑Link Power‑Up Procedure
 
-#### Setup
-
 <figure style="text-align: center;">
   <img src="../assets/images/ST-Link_Power_Up_Setup.png" alt="Test Setup">
   <figcaption>Figure 1: ST-Link Power-Up Test Setup</figcaption>
 </figure>
+
+<br>
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
@@ -95,12 +95,12 @@ Each stage includes structured procedures with defined success criteria.
 
 ## 5.2 External 12 V Power‑Up Procedure
 
-#### Setup
-
 <figure style="text-align: center;">
   <img src="../assets/images/12V_Power_Up_Setup.png" alt="Test Setup">
   <figcaption>Figure 1: External 12V Power-Up Test Setup</figcaption>
 </figure>
+
+<br>
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
@@ -121,12 +121,12 @@ Each stage includes structured procedures with defined success criteria.
 
 ## 5.3 RS‑485 Modbus Communication Procedure
 
-#### Setup
-
 <figure style="text-align: center;">
   <img src="../assets/images/RS-485_Modbus_Comm_Test_Setup.png" alt="Test Setup">
   <figcaption>Figure 1: External 12V Power-Up Test Setup</figcaption>
 </figure>
+
+<br>
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
@@ -145,12 +145,12 @@ Each stage includes structured procedures with defined success criteria.
 
 ## 5.4 Analog Front End + ADC Verification Procedure
 
-#### Setup
-
 <figure style="text-align: center;">
   <img src="../assets/images/AnalogFrontEnd_ADC_Verification_Setup.png" alt="Test Setup">
   <figcaption>Figure 1: External 12V Power-Up Test Setup</figcaption>
 </figure>
+
+<br>
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
