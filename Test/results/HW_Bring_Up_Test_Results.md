@@ -93,8 +93,8 @@ Each stage includes structured results with defined success and failure notes.
 | 6 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s | ✅<sup>1</sup> | ✅ |
 
 ### Notes
-1. Significant voltage sag observed. Measured voltage at C4 was 2.4V. Despite this, firmware was still mistakenly flashed but loaded successfully and LED blinked at the appropriate rate, although dim. No damage to board observed. See RCA in Reference 1.
-2. "P/F 2" column are test results after Corrective Action in RCA in Reference 1.
+1. Significant voltage sag observed. Measured voltage at C4 was 2.4V. Despite this, firmware was still mistakenly flashed but loaded successfully and LED blinked at the appropriate rate, although dim. No damage to board observed. See RCA in [Reference 1](#reference-1).
+2. "P/F 2" column are test results after Corrective Action in RCA in [Reference 1](#reference-1).
 
 ### Conclusion
 
@@ -187,3 +187,6 @@ Each stage includes structured results with defined success and failure notes.
 ---
 
 # 6. References
+
+## Reference 1
+1. [ST Link Power Up RCA](./RCA/ST_Link_Power_Up_RCA.md)

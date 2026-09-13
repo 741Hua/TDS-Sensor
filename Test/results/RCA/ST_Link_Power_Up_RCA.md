@@ -1,4 +1,4 @@
-# Root Cause Analysis (RCA)
+# ST Link Power Up Root Cause Analysis (RCA)
 ## Power Regulation Failure During Hardware Bring-Up  
 **Author:** Jairo Huaylinos
 **Date:** 2026-09-13 
@@ -143,8 +143,8 @@ Incorrect PCB footprints for both the 5V and 3.3V regulators due to mismatched p
 - Revalidated downstream rails and MCU operation via successful execution of the ST‑Link Power‑Up & Blink and External 12 V Power‑Up & Blink test stages of the HW Bring Up Test Plan.
 - 
 <p align="center">
-  <img src="../../assets/images/5V_Regulator_Corrective_Action.jpg" width="50%" alt="5V Regulator Corrective Action">
-  <img src="../../assets/images/3.3V_Regulator_Corrective_Action.jpg" width="50%" alt="3.3V Regulator Corrective Action">
+  <img src="../../assets/images/5V_Regulator_Corrective_Action.jpg" width="45%" alt="5V Regulator Corrective Action">
+  <img src="../../assets/images/3.3V_Regulator_Corrective_Action.jpg" width="45%" alt="3.3V Regulator Corrective Action">
 </p>
 
 <p align="center">
