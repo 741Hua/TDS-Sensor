@@ -90,7 +90,7 @@ Each stage includes structured procedures with defined success criteria.
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
 | 1 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Disconnect 3.3V pin | Board remains unpowered until 12V is applied |  |
-| 2 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) nad pin 4 (GND)|  |
+| 2 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) and pin 4 (GND)|  |
 | 3 | Measure 12V rail with the DMM | Voltage is within 11.9-12.1V |  |
 | 4 | Measure 5V rail with the DMM| Votlage is within 4.9–5.1V |  |
 | 5 | Measure 3.3V rail with the DMM| Voltage is within 3.2–3.4V |  |
@@ -106,10 +106,14 @@ Each stage includes structured procedures with defined success criteria.
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
-| 1 | Flash Modbus dummy TX firmware | Firmware loads successfully |  |
-| 2 | Connect RS‑485 lines to analyzer or PC tool | Stable connection; no bus contention |  |
-| 3 | Monitor Modbus frames | Frames transmitted at correct interval |  |
-| 4 | Verify payload and CRC | Address, function code, data, and CRC are valid |  |
+| 1 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Do not conect the 3.3V pin | Board remains unpowered until 12V is applied |  |
+| 2 | Connect the USB-RS485 Converter A, B, and GND rails to the UUT on connector J4. Connect the USB interface end to your PC. | Board remains unpowered until 12V is applied |  |
+| 3 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) and pin 4 (GND)|  |
+| 4 | Flash Modbus dummy slave RX/TX firmware | Firmware loads successfully |  |
+| 5 | Open the Modbus Master SW tool on your PC. Connect to the corresponding COM port with Baud=9600, Parity = None, Data Bits = 8, and Stop Bits = 1, Slave ID = 1. These settings should match you UART settings on the UUT's MCU. | Log shows "Connected using RTU to COMX", Stable connection. |  |
+| 6 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
+| 7 | Monitor Modbus TX and RX frames on the Log| Log shows "TX: 01 04 00 00 00 01 31 ca" and "RX: 01 04 02 XX XX XX XX" |  |
+| 8 | Verify RX payload and CRC | For example, if the UUT's input register at address 1 is set to 2, then the log should show "RX: 01 04 02 00 02 38 f1". If you have a different payload configured validate the correct payload and CRC bytes using https://valtoris.com/tools/modbus-rtu-crc-16-calculator-hex-checksum-debugging-tool/?hex=11%2004%2002%2000%200A |  |
 
 ---
 
@@ -117,10 +121,17 @@ Each stage includes structured procedures with defined success criteria.
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
+| 1 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Do not conect the 3.3V pin | Board remains unpowered until 12V is applied |  |
+| 2 | Connect the USB-RS485 Converter A, B, and GND rails to the UUT on connector J4. Connect the USB interface end to your PC. | Board remains unpowered until 12V is applied |  |
+| 1 | Connect  the EC sensor probe to connector J3 on the UUT | EC sensor probe is connected to the UUT |  |
+| 3 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) and pin 4 (GND)|  |
+| 4 | Measure the 3.3V supply voltage with the DMM at C6 (close to the MCU) and record it (V<sub>in</sub>). | 3.2V-3.4V is measured and recorded | |
+| 5 | Calculate the ADC to Voltage conversion factor using K = 10<sup>4</sup> x 4095/V<sub>in</sub> | Conversion factor is about equal to the ideal conversion factor of 10<sup>4</sup> x 3.3V/4095 = 8.0586 |  |
+| 1 | Update the ADC + Modbus Firmware with your conversion factor in: <code style="background: #fafafa; padding: 3px 6px; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; font-size: 85%; border: 1px solid #e5e5e6; color: #383a42;"><span style="color: #383a42;">v_reading</span> <span style="color: #a626a4;">=</span> <span style="color: #383a42;">sensor_reading</span> <span style="color: #a626a4;">*</span> <span style="color: #d19a66;">8.105f</span>;</code> | Firmware builds with no errors |  | 
 | 1 | Flash ADC + Modbus firmware | Firmware loads successfully |  |
-| 2 | Measure ADC input voltage with DMM | Stable reading; no unexpected fluctuations |  |
-| 3 | Read Modbus‑reported voltage | Value corresponds to ADC conversion formula |  |
-| 4 | Compare DMM vs Modbus values | Values reasonably close (pre‑calibration tolerance) |  |
+| 2 | Measure ADC input voltage with DMM at D8 and record it.| Stable reading; no unexpected fluctuations |  |
+| 3 | Read Modbus‑reported voltage (represented in hex value, with decimal converter number in units of 10<sup>-4</sup> V) | Log shows "RX: 01 04 02 XX XX YY YY", with XX XX being the voltage value. |  |
+| 4 | Compare DMM vs Modbus values | Values are reasonably close (pre‑calibration tolerance) |  |
 
 ---
 
