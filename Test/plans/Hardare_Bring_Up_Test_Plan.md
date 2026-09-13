@@ -78,7 +78,7 @@ Each stage includes structured procedures with defined success criteria.
        alt="Test Setup"
        width="600">
   <br>
-  <em>Figure 1: Test Setup</em>
+  <em>Figure 1: ST-Link Power Up Test Setup</em>
 </p>
 
 <p>&nbsp;</p>
@@ -103,7 +103,7 @@ Each stage includes structured procedures with defined success criteria.
        alt="Test Setup"
        width="600">
   <br>
-  <em>Figure 1: Test Setup</em>
+  <em>Figure 2: External 12V Power-Up Test Setup</em>
 </p>
 
 <p>&nbsp;</p>
@@ -132,7 +132,7 @@ Each stage includes structured procedures with defined success criteria.
        alt="Test Setup"
        width="600">
   <br>
-  <em>Figure 1: Test Setup</em>
+  <em>Figure 3: RS-485 Modbus Communication Test Setup</em>
 </p>
 
 <p>&nbsp;</p>
@@ -159,7 +159,7 @@ Each stage includes structured procedures with defined success criteria.
        alt="Test Setup"
        width="600">
   <br>
-  <em>Figure 1: Test Setup</em>
+  <em>Figure 4: Analog Front End + ADC Verification Test Setup</em>
 </p>
 
 <p>&nbsp;</p>
