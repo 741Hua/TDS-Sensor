@@ -117,9 +117,8 @@ Each stage includes structured procedures with defined success criteria.
 | 5 | Measure 3.3V rail with the DMM| Voltage is within 3.2–3.4V |  |
 | 6 | Measure 3V rail with DMM at C18 | Voltage is within 2.9–3.1V |  |
 | 7 | Measure -3V rail with DMM at C20 | Voltage is within (-3.1)–(-2.9)V |  |
-| 8 | Observe PC13 LED | LED blinks at a rate of approx 0.5s |
-| 9 | Flash blink firmware (PC13 LED) | Firmware loads successfully |  |
-| 10 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s |  |
+| 8 | Flash blink firmware (PC13 LED) | Firmware loads successfully |  |
+| 9 | Observe PC13 LED | LED blinks at a rate of approx. 0.5s |  |
 
 ### Notes
 
@@ -168,15 +167,16 @@ Each stage includes structured procedures with defined success criteria.
 |--------|-------------|------------------|-----|
 | 1 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Do not conect the 3.3V pin | Board remains unpowered until 12V is applied |  |
 | 2 | Connect the USB-RS485 Converter A, B, and GND rails to the UUT on connector J4. Connect the USB interface end to your PC. | Board remains unpowered until 12V is applied |  |
-| 1 | Connect  the EC sensor probe to connector J3 on the UUT | EC sensor probe is connected to the UUT |  |
-| 3 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) and pin 4 (GND)|  |
-| 4 | Measure the 3.3V supply voltage with the DMM at C6 (close to the MCU) and record it (V<sub>in</sub>). | 3.2V-3.4V is measured and recorded | |
-| 5 | Calculate the ADC to Voltage conversion factor using K = 10<sup>4</sup> x 4095/V<sub>in</sub> | Conversion factor is about equal to the ideal conversion factor of 10<sup>4</sup> x 3.3V/4095 = 8.0586 |  |
-| 1 | Update the ADC + Modbus Firmware with your conversion factor in: `v_reading = sensor_reading * 8.105f;` | Firmware builds with no errors |  | 
-| 1 | Flash ADC + Modbus firmware | Firmware loads successfully |  |
-| 2 | Measure ADC input voltage with DMM at D8 and record it.| Stable reading; no unexpected fluctuations |  |
-| 3 | Read Modbus‑reported voltage (represented in hex value, with decimal converter number in units of 10<sup>-4</sup> V) | Log shows "RX: 01 04 02 XX XX YY YY", with XX XX being the voltage value. |  |
-| 4 | Compare DMM vs Modbus values | Values are reasonably close (pre‑calibration tolerance) |  |
+| 3 | Connect  the EC sensor probe to connector J3 on the UUT | EC sensor probe is connected to the UUT |  |
+| 4 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) and pin 4 (GND)|  |
+| 5 | Measure the 3.3V supply voltage with the DMM at C6 (close to the MCU) and record it (V<sub>in</sub>). | 3.2V-3.4V is measured and recorded | |
+| 6 | Calculate the ADC to Voltage conversion factor using K = 10<sup>4</sup> x 4095/V<sub>in</sub> | Conversion factor is about equal to the ideal conversion factor of 10<sup>4</sup> x 3.3V/4095 = 8.0586 |  |
+| 7 | Update the ADC + Modbus Firmware with your conversion factor in: `v_reading = sensor_reading * 8.105f;` | Firmware builds with no errors |  | 
+| 8 | Flash ADC + Modbus firmware | Firmware loads successfully |  |
+| 9 | Dip the EC sensor probe into a water solution. | Only the waterproof EC sensor probe is in water solution and water is not in contact with the rest of the UUT. |  |
+| 10 | Measure ADC input voltage with DMM at D8 and record it.| Stable reading; no unexpected fluctuations |  |
+| 11 | Read Modbus‑reported voltage (represented in hex value, with decimal converter number in units of 10<sup>-4</sup> V) | Log shows "RX: 01 04 02 XX XX YY YY", with XX XX being the voltage value. |  |
+| 12 | Compare DMM vs Modbus values | Values are reasonably close (pre‑calibration tolerance) |  |
 
 ### Notes
 
