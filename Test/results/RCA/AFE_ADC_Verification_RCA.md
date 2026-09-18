@@ -58,70 +58,73 @@ The failure could originate from the MCU, oscillation generation stage, probe it
 
 
 #### **Environment**
-- Dust creating short circuit conditions. 
+- Dust creating short circuit conditions.
 
 ---
 
 ## 4. Diagnostic Process Summary
+### Step 1 — Verify AFE and sensor probe responsiveness
+- Measured AFE output and voltage difference between the two EC probe wires when the EC probe was submerged in high‑concentration salt water and when the EC probe was in air.  
+- AFE output changed from about -220 mV (submerged) to about -80 mV (in air), confirming the AFE responds to probe conditions.
+- Observed a large voltage difference in air and near 0 V difference in high‑concentration salt water, confirming the EC probe is functional and not the root cause.  
+- Conclusion: **AFE and EC probe are responsive; probe failure is not the root cause.**
 
-### Step 1 — Short-Circuit Elimination
-- Continuity checks confirmed no shorts between any of the P<sub>in</sub>, 5V, 3.3V, 3V, and -3V power and ground nets.
-  
-### Step 2 — Initial Bring-Up
-- 3.3 V rail showed severe sag when powered by the ST-Link V2 Debugger. 
-- ST‑Link power produced dim LED blink   
-- Attempted to power up using an external 12V power input which resulted in the 5V regulator overheating and no expected 5V output. Measured 5V output with DMM was 200mV.
+### Step 2 — Visual inspection and contamination removal
+- Board had been sitting uncovered on the bench and accumulated dust and particulate debris.
+- Executed a visual inspection and found string‑like dust particles and tin whiskers on the board.
+- Removed dust with compressed air and tweezers. Removed all tin whiskers on the AFE circuitry via mechanical removal and by reflow with a soldering iron.
+- Re‑measured AFE output after cleaning: **-220 mV persisted. Short circuits due to tin whiskering and dust are not the root cause.**
 
-### Step 3 — Isolation via Desoldering
-- 3.3V regulator removed to split power tree to allow independent testing of upstream (5V, RS485) and downstream (±3V, MCU) subsystems.
-
-### Step 4 — Upstream Regulator Testing
-- With the 3.3V regulator removed, the 5V regulator was again powered on with the external 12V power supply.
-- Identical failure as before: 5V regulator overheated and 5V output was measured at 200mV.
-- Suspected faulty regulator, so replaced with a brand new one. Identical failure observed.
-- Suspected design/footprint error, verified by comparison between regulator datasheet and schematic/PCB footprints.
+### Step 3 — Oscillator generator diagnosis and RC timing network correction
+- Probed the oscillator output at pin 7 of IC2 and observed a square wave with correct amplitude limits (+3V to -3V), and a measured frequency of 290.1 Hz. One magnitude off from the design target of 3.95 kHz.
 
 <p align="center">
-  <img src="../../assets/images/5V_Regulator_Datasheet_Pinout.png" width="30%" alt="5V Regulator Datasheet">
-  <img src="../../assets/images/5V_Regulator_Schematic.png" width="30%" alt="5V Regulator Schematic">
-  <img src="../../assets/images/5V_Regulator_PCB_footprint.png" width="30%" alt="5V Regulator PCB footprint">
+  <img src="../../assets/images/5V_Regulator_Corrective_Action.jpg" alt="Oscillator output">
 </p>
 
 <p align="center">
-  <em>Figure 1: 5V Regulator datasheet pinout vs incorrect design footprint pinouts</em>
+  <em>Figure 1: Oscillator Output at IC2 Pin 7</em>
 </p>
 
-<p>&nbsp;</p>
+- Suspected fault in the oscillators external RC timing network. So, verified that the SMD resistor package values match the schematic. Found that the correct resistors were used per design.
+- Suspect a faulty RC smd component. So, measured resistances and capacitance with a DMM: R4 ≈ 100 kΩ, R5 ≈ 100 kΩ. Measured C25 ≈ 1 nF.
+- Measured continuity of the RC network and found it matched the schematic design.
+- Suspect design error in the external RC timing network. Calculated expected frequency from the datasheet and discovered R5 should be 10 kΩ, not 100 kΩ, to achieve 3.95 kHz.  
+- Replaced R5 with a 10 kΩ resistor and verified the oscillator produced the expected output frequency and voltages.  
+- Observation: **Fixing the oscillator frequency did not resolve the -220 mV AFE output issue.**
 
-- Conclusion: **Design error: Incorrect schematic and PCB footprints**, not component failure.
+### Step 4 — Probe amplifier stages and identify clipping
+- Probed outputs of Op Amp A and Op Amp C in the AFE chain.  
+- Observed square waves that only swung from **0 V** to approximately **-0.8 V to -1 V**; the positive portion of the waveform was missing.  
+- Interpreted the waveform as positive‑side clipping at the amplifier stages, suggesting the op‑amp positive supply was not present or not connected.
 
-### Step 5 — Downstream Regulator Testing
-- Powered up with 3.3V from the ST‑Link V2 debugger.
-- Voltage sag on the 3.3V bus, measured to be 2.4V. 
-- Verified 3V and -3V regulator funtionality via measurement with a DMM. +3V and -3V regulators outputed the expected stable voltages.  
-- Conclusion: **downstream circuitry functional**. 
+### Step 5 — Power‑rail continuity checks and solder joint inspection
+- Performed continuity checks between the 3 V rail and the op‑amp IC power pin (Pin 4) and between ground nets and the IC ground pins (Pins 5 and 10).  
+- Found **no continuity** between the 3 V rail and the op‑amp power pin and unexpected continuity patterns on some pins.  
+- Visual inspection revealed **cold solder joints** at the op‑amp power and ground pins and at other pins on the IC.
 
-### Step 6 — Reinstallation of 3.3 V Regulator
-- Suspected faulty 3.3V regulator, so replaced with a brand new one. Identical failure observed.
-- Suspected design/footprint error, verified by comparison between regulator datasheet and schematic/PCB footprints.
+### Step 6 — Reflow soldering and verification
+- Reflowed the suspect op‑amp pins by dragging a soldering iron across the pins to ensure proper solder wetting and joint formation.  
+- Re‑ran continuity checks between the 3 V rail and the op‑amp power pin and between ground nets and the op‑amp ground pins; continuity matched the schematic design.  
+- Re‑probed amplifier outputs after reflow and observed the negative‑voltage clipping (**-220 mV**) was resolved.
 
-<p align="center">
-  <img src="../../assets/images/3.3V_Regulator_Datasheet_Pinout.png" width="30%" alt="3.3V Regulator Datasheet">
-  <img src="../../assets/images/3.3V_Regulator_Schematic.png" width="30%" alt="3.3V Regulator Schematic">
-  <img src="../../assets/images/3.3V_Regulator_PCB_footprint.png" width="30%" alt="3.3V Regulator PCB footprint">
-</p>
+### Step 7 — Component replacement and final verification
+- Despite restored continuity, AFE output did not reach the expected near‑3 V level when the EC probe was dipped in the high‑concentration salt solution (expected ≈ 3 V).  
+- Suspected the op‑amp IC had been damaged; replaced the op‑amp with a new, known‑good device.  
+- After replacement, observed ADC/AFE output near the expected maximum (measured **~2.4 V**) when the EC probe was dipped in the high‑concentration salt solution.  
+- Verified proper waveforms and expected signals at each op‑amp stage.
 
-<p align="center">
-  <em>Figure 2: 3.3V Regulator datasheet pinout vs incorrect design footprint pinouts</em>
-</p>
+### Step 3
+- Ok then quickly summarize: I probed the the Op Amp A output and op Amp C output. Both demonstrated square waves from around 0V to a negative voltage (aobut -800mV or -1V). Suspect unconnected 3V power input to Op Amp IC. Continutity check betweent the power rails and the IC pins revealed unconnected 3V power input pin (Pin 4), unconnected gnd pins (pin 10 and 5). Visual inspection revealed cold solder joints at these pins and other pins. Corrective action to reflow solder to the pins using soldering iron. Post resolder, ran continuity check between IC pins and expected signals or power buses. Also ran continuity check to verify board matches AFE shematic design. Continuity per design verified. This did solve the negative voltage issue, no longer seeing -220mV. However, we were not seeing and expecte AFE output voltage near the 3V max when the EC sensor was dipped in a high concentration salt water solution (way beyond 1000ppm since it was a teaspoon of salt in a 1/4 cup of water).
 
-<p>&nbsp;</p>
+Suspected damaged Op Amp IC. Replaced with brand new one. observed ADC output near 3V max (2.4V) when EC probe was dipped in the high concentration salt water solution. Verified proper signals at each op amp stage.
+
 
 ---
 
 ## 5. Root Cause
 ### **Primary Root Cause**
-Incorrect PCB footprints for both the 5V and 3.3V regulators due to mismatched pin mapping between schematic symbols and manufacturer datasheets.
+Incorrect R5 resistor value (100kohm instead of 10kohm) and a damaged op amp IC CD4060BM (IC3) from rework.  
 
 ### **Secondary Causes**
 - Lack of schematic-to-footprint verification step.
@@ -132,9 +135,7 @@ Incorrect PCB footprints for both the 5V and 3.3V regulators due to mismatched p
 ## 6. Corrective Actions
 
 ### Implemented
-- Corrected regulator footprints based on manufacturer datasheets.  
-- Resoldered 5V and 3.3V regulators with jumper wires to continue prototype testing.
-- Revalidated downstream rails and MCU operation via successful execution of the ST‑Link Power‑Up & Blink and External 12 V Power‑Up & Blink test stages of the HW Bring Up Test Plan.
+- 
 - 
 <p align="center">
   <img src="../../assets/images/5V_Regulator_Corrective_Action.jpg" width="45%" alt="5V Regulator Corrective Action">
