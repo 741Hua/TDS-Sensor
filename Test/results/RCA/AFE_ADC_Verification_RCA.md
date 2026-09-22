@@ -83,7 +83,7 @@ The failure could originate from the MCU, oscillation generation stage, probe it
 </p>
 
 <p align="center">
-  <em>Figure 1: Oscillator Output at IC2 Pin 7, 290MHz</em>
+  <em>Figure 1: Oscillator Output at IC2 Pin 7, 290Hz</em>
 </p>
 
 - Suspected fault in the oscillators external RC timing network. So, verified that the SMD resistor package values match the schematic. Found that the correct resistors were used per design.
@@ -168,7 +168,7 @@ Summary: **The root cause was an inefficient and unstable manual soldering/rewor
 - Probed op‑amp stages to confirm restored waveform integrity.
 - Replaced IC3 with a brand‑new op‑amp after confirming the original device had been damaged during rework.
 - Verified correct AFE output (≈2.4 V in high‑salt solution) and proper operation of all amplifier stages.
-
+- Update R5 value on schematic to 10kΩ.
 
 ### Recommended Preventive Actions
 - Apply solder paste using a solder paste stencil to ensure the adequeate amount of solder is evenly distributed to the IC pads, thus preventing solder bridges.
