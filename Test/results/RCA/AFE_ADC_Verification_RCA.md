@@ -1,7 +1,7 @@
 # AFE and ADC Verification Root Cause Analysis (RCA)
 ## AFE Failure During Hardware Bring-Up  
 **Author:** Jairo Huaylinos
-**Date:** 2026-09-13 
+**Date:** 2026-09-21
 **Board:** Custom STM32-Based TDS Sensor PCB  
 
 ---
@@ -76,85 +76,109 @@ The failure could originate from the MCU, oscillation generation stage, probe it
 - Re‑measured AFE output after cleaning: **-220 mV persisted. Short circuits due to tin whiskering and dust are not the root cause.**
 
 ### Step 3 — Oscillator generator diagnosis and RC timing network correction
-- Probed the oscillator output at pin 7 of IC2 and observed a square wave with correct amplitude limits (+3V to -3V), and a measured frequency of 290.1 Hz. One magnitude off from the design target of 3.95 kHz.
+- Probed the oscillator output at pin 7 of IC2 and observed a square wave with correct amplitude limits (+3V to -3V), and a measured frequency of 290.1 Hz. One magnitude off from the design target of 2.84 kHz.
 
 <p align="center">
-  <img src="../../assets/images/5V_Regulator_Corrective_Action.jpg" alt="Oscillator output">
+  <img src="../../assets/images/Oscillator_290Hz.jpg" alt="Oscillator output before">
 </p>
 
 <p align="center">
-  <em>Figure 1: Oscillator Output at IC2 Pin 7</em>
+  <em>Figure 1: Oscillator Output at IC2 Pin 7, 290MHz</em>
 </p>
 
 - Suspected fault in the oscillators external RC timing network. So, verified that the SMD resistor package values match the schematic. Found that the correct resistors were used per design.
 - Suspect a faulty RC smd component. So, measured resistances and capacitance with a DMM: R4 ≈ 100 kΩ, R5 ≈ 100 kΩ. Measured C25 ≈ 1 nF.
 - Measured continuity of the RC network and found it matched the schematic design.
-- Suspect design error in the external RC timing network. Calculated expected frequency from the datasheet and discovered R5 should be 10 kΩ, not 100 kΩ, to achieve 3.95 kHz.  
-- Replaced R5 with a 10 kΩ resistor and verified the oscillator produced the expected output frequency and voltages.  
+- Suspect design error in the external RC timing network. Calculated expected frequency from the datasheet and discovered R5 should be 10 kΩ, not 100 kΩ, to achieve 2.84 kHz.  
+- Replaced R5 with a 10 kΩ resistor and verified the oscillator produced the expected output frequency and voltages. See Figure 2.
 - Observation: **Fixing the oscillator frequency did not resolve the -220 mV AFE output issue.**
+
+<p align="center">
+  <img src="../../assets/images/Oscillator_2.5kHz.jpg" alt="Oscillator output after">
+</p>
+
+<p align="center">
+  <em>Figure 2: Oscillator Output at IC2 Pin 7 after R5 swap to 10kΩ</em>
+</p>
 
 ### Step 4 — Probe amplifier stages and identify clipping
 - Probed outputs of Op Amp A and Op Amp C in the AFE chain.  
-- Observed square waves that only swung from **0 V** to approximately **-0.8 V to -1 V**; the positive portion of the waveform was missing.  
+- Observed Op Amp A square wave that swung from -180mV to-1.580V; the positive portion of the waveform was missing.
+- Observed Op Amp C square wave that swung from -256mV to -676mV; the positive portion of the waveform was missing.
 - Interpreted the waveform as positive‑side clipping at the amplifier stages, suggesting the op‑amp positive supply was not present or not connected.
+- 
+<p align="center">
+  <img src="../../assets/images/OpAmpA_Output.jpg" width="45%" alt="Op Amp A Output">
+  <img src="../../assets/images/OpAmpC_Output.jpg" width="45%" alt="Op Amp C Output">
+</p>
+
+<p align="center">
+  <em>Figure 3: Op Amp A output (Left) and Op Amp C Output (Right)</em>
+</p>
 
 ### Step 5 — Power‑rail continuity checks and solder joint inspection
-- Performed continuity checks between the 3 V rail and the op‑amp IC power pin (Pin 4) and between ground nets and the IC ground pins (Pins 5 and 10).  
-- Found **no continuity** between the 3 V rail and the op‑amp power pin and unexpected continuity patterns on some pins.  
-- Visual inspection revealed **cold solder joints** at the op‑amp power and ground pins and at other pins on the IC.
+- Performed continuity checks between the 3V rail and the op‑amp IC3 power pin 4, between the -3V rail and the op amp IC power pin 11, and between ground nets and the grounded IC pins (Pins 3, 5, and 10).  
+- Found no continuity between the 3V rail and IC pin 4 and unexpected continuity patterns on some pins.
+- Visual inspection revealed cold solder joints at IC3 pin 4, 5, 10, and other IC3 pins.
 
 ### Step 6 — Reflow soldering and verification
-- Reflowed the suspect op‑amp pins by dragging a soldering iron across the pins to ensure proper solder wetting and joint formation.  
-- Re‑ran continuity checks between the 3 V rail and the op‑amp power pin and between ground nets and the op‑amp ground pins; continuity matched the schematic design.  
-- Re‑probed amplifier outputs after reflow and observed the negative‑voltage clipping (**-220 mV**) was resolved.
+- Reflowed the suspect op‑amp pins by dragging a soldering iron across the pins to ensure proper solder wetting and joint formation.
+- Re‑ran continuity checks between IC3 pins and expected nets. continuity matched the schematic design.
+- Re‑probed amplifier outputs after reflow: **and observed the negative‑voltage clipping was resolved.**
 
 ### Step 7 — Component replacement and final verification
-- Despite restored continuity, AFE output did not reach the expected near‑3 V level when the EC probe was dipped in the high‑concentration salt solution (expected ≈ 3 V).  
+- Despite restored continuity, AFE output did not reach the expected near 3V level when the EC probe was dipped in a high‑concentration salt solution (expected ≈ 3V, actual = 240mV.).  
 - Suspected the op‑amp IC had been damaged; replaced the op‑amp with a new, known‑good device.  
-- After replacement, observed ADC/AFE output near the expected maximum (measured **~2.4 V**) when the EC probe was dipped in the high‑concentration salt solution.  
+- After replacement, observed ADC/AFE output near the expected maximum (measured ~2.4 V) when the EC probe was dipped in the high‑concentration salt solution.  
 - Verified proper waveforms and expected signals at each op‑amp stage.
 
-### Step 3
-- Ok then quickly summarize: I probed the the Op Amp A output and op Amp C output. Both demonstrated square waves from around 0V to a negative voltage (aobut -800mV or -1V). Suspect unconnected 3V power input to Op Amp IC. Continutity check betweent the power rails and the IC pins revealed unconnected 3V power input pin (Pin 4), unconnected gnd pins (pin 10 and 5). Visual inspection revealed cold solder joints at these pins and other pins. Corrective action to reflow solder to the pins using soldering iron. Post resolder, ran continuity check between IC pins and expected signals or power buses. Also ran continuity check to verify board matches AFE shematic design. Continuity per design verified. This did solve the negative voltage issue, no longer seeing -220mV. However, we were not seeing and expecte AFE output voltage near the 3V max when the EC sensor was dipped in a high concentration salt water solution (way beyond 1000ppm since it was a teaspoon of salt in a 1/4 cup of water).
+<p align="center">
+  <img src="../../assets/images/OpAmpC_Output_IC3_Replacement.jpg" width="30%" alt="Op Amp C Output after IC replacement">
+  <img src="../../assets/images/Rectification_Output_IC3_Replacement.jpg" width="30%" alt="Op Amp C Output after IC replacement">
+  <img src="../../assets/images/ADC_Input_IC3_Replacement.jpg" width="30%" alt="Op Amp A Output after IC replacement">
+</p>
 
-Suspected damaged Op Amp IC. Replaced with brand new one. observed ADC output near 3V max (2.4V) when EC probe was dipped in the high concentration salt water solution. Verified proper signals at each op amp stage.
-
+<p align="center">
+  <em>Figure 4: Post Replacement captures: Op Amp C Output (Left), Rectified Output (Center), ADC Input (Right)</em>
+</p>
 
 ---
 
 ## 5. Root Cause
 ### **Primary Root Cause**
-Incorrect R5 resistor value (100kohm instead of 10kohm) and a damaged op amp IC CD4060BM (IC3) from rework.  
+Root cause was the soldering process used for IC3 (the op‑amp). IC3 was originally soldered along with the rest of the components using hot plate reflow. However, the initial reflow produced multiple solder bridges around the IC pins. To remove those bridges, drag soldering was attempted with no success. Then, hot air removal and reinstallation via pretinning was attempted.
+
+During the hot‑air reinstallation, the IC could not be held perfectly stable due to its small package size. As the solder liquified, the IC shifted around on the footprint, resulting in prolonged heating, uneven cooling, and ultimately cold joints on multiple pins—including the 3V power pin and ground pins. 
+
+Summary: **The root cause was an inefficient and unstable manual soldering/rework process on a small‑package IC, leading to cold joints and eventual op‑amp failure.**
 
 ### **Secondary Causes**
-- Lack of schematic-to-footprint verification step.
-- Use of generic library symbols without validating pin assignments  
+- Loss of 3V supply to the op-amp due to cold joints.
+- Permanent damage to IC3 due to overheating during rework.
 
 ---
 
 ## 6. Corrective Actions
 
 ### Implemented
-- 
-- 
-<p align="center">
-  <img src="../../assets/images/5V_Regulator_Corrective_Action.jpg" width="45%" alt="5V Regulator Corrective Action">
-  <img src="../../assets/images/3.3V_Regulator_Corrective_Action.jpg" width="45%" alt="3.3V Regulator Corrective Action">
-</p>
+- Removed IC3 and cleaned the footprint.
+- Reflowed all pads and removed excess solder to eliminate bridges.
+- Reinstalled IC3 using hot air, ensuring proper solder wetting across all pins.
+- Verified continuity between all IC pins and their respective nets (3 V, GND, signal lines).
+- Probed op‑amp stages to confirm restored waveform integrity.
+- Replaced IC3 with a brand‑new op‑amp after confirming the original device had been damaged during rework.
+- Verified correct AFE output (≈2.4 V in high‑salt solution) and proper operation of all amplifier stages.
 
-<p align="center">
-  <em>Figure 3: 5V and 3.3V Regulator Temporary Fix</em>
-</p>
-
-<p>&nbsp;</p>
 
 ### Recommended Preventive Actions
-- Add mandatory footprint verification step to design workflow.  
-- Use manufacturer-provided footprints whenever possible.
+- Apply solder paste using a solder paste stencil to ensure the adequeate amount of solder is evenly distributed to the IC pads, thus preventing solder bridges.
+- If rework is required, anchor one corner pin first with a soldering iron before switching to hot air to prevent IC movement. Also use Kapton tape to prevent IC drift during reflow.
+- Consider using a larger IC package, if size constraint allows.
+- Limit time exposed to hot air gun (365 C) to less than 8 seconds when the nozzle is close enough that solder melts.
 
 ---
 
 ## 7. Conclusion
-The failure was caused by incorrect footprints for both the 5V and 3.3V regulators, resulting in improper pin connections and regulator malfunction. Systematic isolation through desoldering and staged testing confirmed that downstream circuitry was functional and that the upstream regulators were the sole contributors to the voltage sag and power-up failure.
+The failure was caused by an unstable and inefficient soldering/rework process on IC3, where movement of the small‑package op‑amp IC during reflow created cold joints on critical power and ground pins. Repeated hot air and soldering rework also thermally damaged the device. These soldering defects led to loss of the 3V rail at the amplifier stages, clipped waveforms, and, consequently, the persistent −220 mV AFE output. Reflowing the pins restored power and ground continuity, and replacing the damaged op‑amp IC3 fully resolved the issue, confirming that improper soldering and excessive rework were the root cause. 
 
-This RCA demonstrates effective use of isolation, staged testing, and datasheet-driven verification to identify and resolve complex power regulation issues.
+This RCA highlights effective use of systematic isolation via staged signal probing, and disciplined verification against schematic and datasheet expectations to pinpoint and resolve faults introduced during assembly and rework.
