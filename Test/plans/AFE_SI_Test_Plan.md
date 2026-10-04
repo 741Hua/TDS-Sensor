@@ -1,8 +1,8 @@
 # Hardware Bring‑Up Test Plan & Procedures  
-**Document ID:** TDS-DTP-001  
+**Document ID:** TDS-DTP-004 
 **Revision:** 1.0  
 **Author:** Jairo Huaylinos  
-**Date:** 2026‑09‑12  
+**Date:** 2026‑10-04
 
 ---
 
@@ -12,10 +12,7 @@
 3. Equipment Required  
 4. Test Plan Overview  
 5. Test Procedures  
-   - 5.1 ST‑Link Power‑Up & Blink 
-   - 5.2 External 12 V Power‑Up  & Blink
-   - 5.3 RS‑485 Modbus Communication  
-   - 5.4 Analog Front End + ADC Verification  
+6. References
 
 ---
 
