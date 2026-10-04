@@ -16,6 +16,7 @@
    - 5.2 External 12 V Power‑Up  & Blink
    - 5.3 RS‑485 Modbus Communication  
    - 5.4 Analog Front End + ADC Verification  
+6. References
 
 ---
 

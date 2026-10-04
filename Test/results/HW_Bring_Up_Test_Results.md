@@ -176,13 +176,13 @@ Each stage includes structured results with defined success and failure notes.
 | 2 | Connect the USB-RS485 Converter A, B, and GND rails to the UUT on connector J4. Connect the USB interface end to your PC. | Board remains unpowered until 12V is applied | ✅ |  |
 | 3 | Connect  the EC sensor probe to connector J3 on the UUT | EC sensor probe is connected to the UUT | ✅ |  |
 | 4 | Connect the 12V Power Supply power and ground to connector J4 on the UUT| Power supply power and ground is physically connected to J4 pin 1 (P_IN) and pin 4 (GND)| ✅ |  |
-| 5 | Measure the 3.3V supply voltage with the DMM at C6 (close to the MCU) and record it (V<sub>in</sub>). | 3.2V-3.4V is measured and recorded | ✅ |  |
+| 5 | Measure the 3.3V supply voltage with the DMM at C6 (close to the MCU) and record it (V<sub>in</sub>). | 3.2V-3.4V is measured and recorded | ✅ |  3.315V|
 | 6 | Calculate the ADC to Voltage conversion factor using K = 10<sup>4</sup> x 4095/V<sub>in</sub> | Conversion factor is about equal to the ideal conversion factor of 10<sup>4</sup> x 3.3V/4095 = 8.0586 | ✅<sup>[3]</sup> |  |
 | 7 | Update the ADC + Modbus Firmware with your conversion factor in: `v_reading = sensor_reading * 8.105f;` | Firmware builds with no errors | ✅ |  |
 | 8 | Flash ADC + Modbus firmware | Firmware loads successfully | ✅ |  |
 | 9 | Dip the EC sensor probe into a water solution. | Only the waterproof EC sensor probe is in water solution and water is not in contact with the rest of the UUT. | ✅ |  |
-| 10 | Measure ADC input voltage with DMM at D8 and record it.| Stable reading; no unexpected fluctuations | ❌<sup>[4]</sup> |  |
-| 11 | Read Modbus‑reported voltage (represented in hex value, with decimal converter number in units of 10<sup>-4</sup> V) | Log shows "RX: 01 04 02 XX XX YY YY", with XX XX being the voltage value. | ✅ |  |
+| 10 | Measure ADC input voltage with DMM at D8 and record it.| Stable reading; no unexpected fluctuations | ❌<sup>[4]</sup> | 2.264V |
+| 11 | Read Modbus‑reported voltage (represented in hex value, with decimal converter number in units of 10<sup>-4</sup> V) | Log shows "RX: 01 04 02 XX XX YY YY", with XX XX being the voltage value. | ✅ | 2.2199V reported per ADC (56B7) (actual DMM 2.271V) 0.0511V deviation (on 1.5 clock cycle ADC sampling time). With a 28.5 cycle sampling time, we observed a reported 2.288V while the actual was 2.338V. (Not a fluke, ran this test twice same results, observed higher voltage with 28.5 clock cycles). ok with 71.5 clock cycles, we see reported 2.305V and 2.354V actual (0.049V deviation). Error deviation is fixed at 0.05V (due to conversion). However, voltage is increasing with higher clock cycles. with 239.5 cycle reported 2.3115V (2.361V actual)|
 | 12 | Compare DMM vs Modbus values | Values are reasonably close (pre‑calibration tolerance) | ❌<sup>[4]</sup> |  |
 
 ### Notes

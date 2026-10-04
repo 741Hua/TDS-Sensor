@@ -182,3 +182,64 @@ Summary: **The root cause was an inefficient and unstable manual soldering/rewor
 The failure was caused by an unstable and inefficient soldering/rework process on IC3, where movement of the small‑package op‑amp IC during reflow created cold joints on critical power and ground pins. Repeated hot air and soldering rework also thermally damaged the device. These soldering defects led to loss of the 3V rail at the amplifier stages, clipped waveforms, and, consequently, the persistent −220 mV AFE output. Reflowing the pins restored power and ground continuity, and replacing the damaged op‑amp IC3 fully resolved the issue, confirming that improper soldering and excessive rework were the root cause. 
 
 This RCA highlights effective use of systematic isolation via staged signal probing, and disciplined verification against schematic and datasheet expectations to pinpoint and resolve faults introduced during assembly and rework.
+
+
+## ADC Sampling Time Calculation (Single Section)
+
+We start with the ADC clock frequency of 12 MHz. The clock period is:
+
+- T<sub>ADC</sub> = 1 / 12MHz  
+- T<sub>ADC</sub> ≈ 83.3 ns  
+
+Next, we determine how long the ADC sample‑and‑hold capacitor needs to settle to 12‑bit accuracy.  
+Your values:
+
+- R<sub>source</sub> = 20 kΩ  
+- R<sub>ADC_internal</sub> ≈ 1 kΩ  
+- R<sub>eff</sub> = 21 kΩ  
+- C<sub>SH</sub> = 8 pF = 8 × 10<sup>−12</sup> F  
+
+Compute the RC time constant:
+
+- RC = R<sub>eff</sub> × C<sub>SH</sub>  
+- RC = 21,000 × 8 × 10<sup>−12</sup>  
+- RC = 168 × 10<sup>−9</sup> s  
+- RC = 168 ns  
+
+For an RC step response, the remaining error after time t is:
+
+- error = exp(−t / RC)
+
+For 12‑bit accuracy, the error must be less than 1 LSB:
+
+- 1 LSB ≈ 1 / 2<sup>12</sup> ≈ 0.000244  
+
+Solve:
+
+- exp(−t / RC) ≤ 1 / 2<sup>12</sup>  
+- −t / RC ≤ ln(1 / 2<sup>12</sup>)  
+- ln(1 / 2<sup>12</sup>) ≈ −8.3  
+
+Thus:
+
+- t<sub>settle</sub> ≈ 8.3 × RC  
+- t<sub>settle</sub> ≈ 8.3 × 168 ns   
+- t<sub>settle</sub> ≈ 1.39 µs  
+
+Convert this settle time into ADC clock cycles:
+
+- N<sub>cycles</sub> = t<sub>settle</sub> / T<sub>ADC</sub>  
+- N<sub>cycles</sub> = 1.39 µs / 83.3 ns  
+- N<sub>cycles</sub> ≈ 16.7  
+
+So the ADC sample‑and‑hold capacitor requires **about 17 ADC clock cycles** to settle to 12‑bit accuracy with your 20 kΩ source, 1 kΩ internal resistance, and 8 pF sampling capacitor.
+
+Mapping this to STM32F103 sampling times:
+
+- `ADC_SAMPLETIME_13CYCLES_5` → 13.5 cycles (slightly below requirement)  
+- `ADC_SAMPLETIME_28CYCLES_5` → 28.5 cycles (comfortably above requirement)  
+
+Recommended setting:
+
+```c
+sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;

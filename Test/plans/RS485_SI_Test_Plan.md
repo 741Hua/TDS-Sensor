@@ -1,8 +1,8 @@
 # Hardware Bring‑Up Test Plan & Procedures  
-**Document ID:** TDS-DTP-001  
+**Document ID:** TDS-DTP-002 
 **Revision:** 1.0  
 **Author:** Jairo Huaylinos  
-**Date:** 2026‑09‑12  
+**Date:** 2026‑10-03 
 
 ---
 
@@ -11,11 +11,8 @@
 2. Unit Under Test  
 3. Equipment Required  
 4. Test Plan Overview  
-5. Test Procedures  
-   - 5.1 ST‑Link Power‑Up & Blink 
-   - 5.2 External 12 V Power‑Up  & Blink
-   - 5.3 RS‑485 Modbus Communication  
-   - 5.4 Analog Front End + ADC Verification  
+5. Test Procedures 
+6. References 
 
 ---
 
@@ -54,39 +51,21 @@ The UUT is a custom STM32‑based TDS sensor PCB, serial number 2, paired with a
 
 # 4. Test Plan Overview
 
-The hardware bring‑up consists of four main stages:
-
-1. **Packet transmission**  
-   Verifies MCU boot, clock operation, GPIO functionality, and basic power behavior using the debugger’s 3.3 V supply.
-
-2. **Signal Rise & Fall Times**  
-   The manufacturer for the MAX485CUA+T characterizes drive rise and fall times (t<sub>R</sub>, t<sub>F</sub>) as (MIN: 3ns, TYP: 15ns, MAX: 40ns) and maximum data rate f<sub>MAX</sub> as 2.5 Mbps.
+The RS485 Signal Integrity Test Plan covers 3 baud rates: 1200, 9600, 19200 Bd. For each of those rates, the following are verified:
+- Successful transmission and reception of Modbus RTU messages.
+- Device UART message frames are transmitted with less than 1.5 character times spacing. 1 character is defined as one full UART frame. 1 character is 11 bits (1 start bit, 8 bits for data, 1 parity bit, and 1 stop bit)
+- Device transmission baud rate accuracy is within 1%.
+- RS-485 logic voltage levels are correct.
+- Less than 200mV magnitude difference between RS485 logic HIGH (V<sub>A</sub>-V<sub>B</sub>>=0) and logic LOW (V<sub>A</sub>-V<sub>B</sub><>=0).
+- Rise and fall times (t<sub>R</sub>, t<sub>F</sub>) within MAX485CUA+T manufacturer specifications (MIN: 3ns, TYP: 15ns, MAX: 40ns).
 
 Each stage includes structured procedures with defined success criteria.
 
-Modbus communication at different baud rates. Capture log. Use representative cable lengths.
-
-
-Notes for what the test should include:
-   - that the device responds to both broadcast and unicast requests from the master. (Using both Even parity (required) and no parity (recommended))
-   - 3.5 character spacing betweem message frames
-   - try sending modbbus frames at the maximum size of 256 bytes
-   - slave transmit messsage frame shoud have less than 1.5 char time spacing between 2 characters. Verify this.
-   - Does my modbus slave driver code include interrupts for t1.5 and t3.5? does it monitor this? Consequently these two timers must be strictly respected when the baud rate is equal or lower than 19200 Bps
-   - Typical buad rate for RS485 is 9600. 9600 bps and 19.2 Kbps are required. Must test these 2 baud rates, also test a lower baud rate of 1200. There is no minimum but this is the typical minimum baud rate in modern systems.
-   - Transmit baud rate accuracy must be within 1%. Reception baud rate tolerance: must accept up to 2% error. Not sure how you'd test the reception tolerance.
-  
-
-Ok so test goals (hardware centric only)
-- Device can recieve and transmit at 9600 bps, 19200 bps, and 1200 bps.
-- Device RTU message frames must be transmitted with less than 1.5 character times spacing.
-- Device transmission baud rate accuracy is within 1%.
-- RS-485 voltage levels are correct.
-- Less than 200mV difference in RS485 
-
 Out of scope:
-- Recpetion baud rate tolerance of up to 2%. -> do not have tools to test this. this is more of a software capability.
-- 
+- Recepetion baud rate tolerance of up to 2%. -> do not have tools to test this. this is more of a software capability.
+- Response to both unicast and broadcast messages.
+- Even Parity testing is not included since test plan is hardware centric, not protocol centric.
+
 ---
 
 # 5. Test Procedures
@@ -96,109 +75,45 @@ Out of scope:
 ## 5.1 ST‑Link Power‑Up Procedure
 
 <p align="center">
-  <img src="../assets/images/ST-Link_Power_Up_Setup.png"
+  <img src="../assets/images/RS485_SI_Test_Setup.png"
        alt="Test Setup"
        width="600">
   <br>
-  <em>Figure 1: ST-Link Power Up Test Setup</em>
+  <em>Figure 1: RS485 SI Test Setup</em>
 </p>
 
 <p>&nbsp;</p>
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
-| 6 |  |  |  |
-
-### Notes
-
----
-
-## 5.2 External 12 V Power‑Up Procedure
-
-<p align="center">
-  <img src="../assets/images/12V_Power_Up_Setup.png"
-       alt="Test Setup"
-       width="600">
-  <br>
-  <em>Figure 2: External 12V Power-Up Test Setup</em>
-</p>
-
-<p>&nbsp;</p>
-
-| Step # | Description | Success Criteria | P/F |
-|--------|-------------|------------------|-----|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
-| 6 |  |  |  |
-| 7 |  |  |  |
-| 8 |  |  |  |
-| 9 |  |  |  |
-
-### Notes
-
----
-
-## 5.3 RS‑485 Modbus Communication Procedure
-
-<p align="center">
-  <img src="../assets/images/RS-485_Modbus_Comm_Test_Setup.png"
-       alt="Test Setup"
-       width="600">
-  <br>
-  <em>Figure 3: RS-485 Modbus Communication Test Setup</em>
-</p>
-
-<p>&nbsp;</p>
-
-| Step # | Description | Success Criteria | P/F |
-|--------|-------------|------------------|-----|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
-| 6 |  |  |  |
-| 7 |  |  |  |
-| 8 |  |  |  |
-
-### Notes
-
----
-
-## 5.4 Analog Front End + ADC Verification Procedure
-
-<p align="center">
-  <img src="../assets/images/AnalogFrontEnd_ADC_Verification_Setup.png"
-       alt="Test Setup"
-       width="600">
-  <br>
-  <em>Figure 4: Analog Front End + ADC Verification Test Setup</em>
-</p>
-
-<p>&nbsp;</p>
-
-| Step # | Description | Success Criteria | P/F |
-|--------|-------------|------------------|-----|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
-| 6 |  |  |  |
-| 7 |  |  |  |
-| 8 |  |  |  |
-| 9 |  |  |  |
-| 10 |  |  |  |
-| 11 |  |  |  |
-| 12 |  |  |  |
+| 1 | Connect the oscilloscope probes to the RS485 A and B output wires on the TDS sensor board | Probe is connected to A and B lines with appropriate ground reference |  |
+| 2 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Disconnect 3.3V pin | Board remains unpowered until 12V is applied |  |
+| 3 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Do not conect the 3.3V pin | Board remains unpowered until 12V is applied |  |
+| 4 | Connect the USB-RS485 Converter A, B, and GND rails to the UUT on connector J4. Connect the USB interface end to your PC. | Board remains unpowered until 12V is applied |  |
+| 5 | Flash Modbus RTU slave driver code with a 9600 baud rate (use a release build, not debug build). | Release build is successfully flashed to the board successfully with no errors |  |
+| 6 | Open the Modbus Master SW tool on your PC. Connect to the corresponding COM port with Baud=9600, Parity = None, Data Bits = 8, and Stop Bits = 1, Slave ID = 1. These settings should match you UART settings on the UUT's MCU. | Log shows "Connected using RTU to COMX", Stable connection. |  |
+| 7 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
+| 8 | Set oscilloscope to 500mV/Div, trigger level to 2.5V. Setup for single capture. | Oscilloscope captures ,modbus response frame from the TDS module |  |
+| 9 | Measure the spacing between UART frames (11-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
+| 10 | Measure baud rate | Measured Baud Rate is between 9504 and 9696 |  |
+| 11 | Measure the RS-485 voltage levels | voltage levels should be 0V and 5V |  |
+| 12 | Measure the difference between the magnitudes of RS485 A-B and B-A | magnitude difference between A-B and B-A should be less than 200mV |  |
+| 13 | Flash Modbus RTU slave driver code with a 19200 baud rate (use a release build, not debug build). | Release build is successfully flashed to the board successfully with no errors |  |
+| 14 | Open the Modbus Master SW tool on your PC. Connect to the corresponding COM port with Baud=19200, Parity = None, Data Bits = 8, and Stop Bits = 1, Slave ID = 1. These settings should match you UART settings on the UUT's MCU. | Log shows "Connected using RTU to COMX", Stable connection. |  |
+| 15 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
+| 16 | Set oscilloscope to 500mV/Div, trigger level to 2.5V. Setup for single capture. | Oscilloscope captures ,modbus response frame from the TDS module |  |
+| 17 | Measure the spacing between UART frames (11-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
+| 18 | Measure baud rate | Measured Baud Rate is between 19008 and 19392 |  |
+| 19 | Measure the RS-485 voltage levels | voltage levels should be 0V and 5V |  |
+| 20 | Measure the difference between the magnitudes of RS485 A-B and B-A | magnitude difference between A-B and B-A should be less than 200mV |  |
+| 21 | Flash Modbus RTU slave driver code with a 1200 baud rate (use a release build, not debug build). | Release build is successfully flashed to the board successfully with no errors |  |
+| 22 | Open the Modbus Master SW tool on your PC. Connect to the corresponding COM port with Baud=1200, Parity = None, Data Bits = 8, and Stop Bits = 1, Slave ID = 1. These settings should match you UART settings on the UUT's MCU. | Log shows "Connected using RTU to COMX", Stable connection. |  |
+| 23 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
+| 24 | Set oscilloscope to 500mV/Div, trigger level to 2.5V. Setup for single capture. | Oscilloscope captures ,modbus response frame from the TDS module |  |
+| 25 | Measure the spacing between UART frames (11-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
+| 26 | Measure baud rate | Measured Baud Rate is between 1188 and 1212 |  |
+| 27 | Measure the RS-485 voltage levels | voltage levels should be 0V and 5V |  |
+| 28 | Measure the difference between the magnitudes of RS485 A-B and B-A | magnitude difference between A-B and B-A should be less than 200mV |  |
 
 ### Notes
 
