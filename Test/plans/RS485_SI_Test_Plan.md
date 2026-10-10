@@ -55,9 +55,7 @@ The RS485 Signal Integrity Test Plan covers 3 baud rates: 1200, 9600, 19200 Bd. 
 - Successful transmission and reception of Modbus RTU messages.
 - Device UART message frames are transmitted with less than 1.5 character times spacing. 1 character is defined as one full UART frame. 1 character is 11 bits (1 start bit, 8 bits for data, 1 parity bit, and 1 stop bit)
 - Device transmission baud rate accuracy is within 1%.
-- RS-485 logic voltage levels are correct.
-- Less than 200mV magnitude difference between RS485 logic HIGH (V<sub>A</sub>-V<sub>B</sub>>=0) and logic LOW (V<sub>A</sub>-V<sub>B</sub><>=0).
-- Rise and fall times (t<sub>R</sub>, t<sub>F</sub>) within MAX485CUA+T manufacturer specifications (MIN: 3ns, TYP: 15ns, MAX: 40ns).
+- RS-485 logic voltage level differential between A and B should be between +-1.5V to +-6V
 
 Each stage includes structured procedures with defined success criteria.
 
@@ -86,34 +84,34 @@ Out of scope:
 
 | Step # | Description | Success Criteria | P/F |
 |--------|-------------|------------------|-----|
-| 1 | Connect the oscilloscope probes to the RS485 A and B output wires on the TDS sensor board | Probe is connected to A and B lines with appropriate ground reference |  |
+| 1 | Connect the oscilloscope probes to the RS485 A (CH1) and B (CH2) output wires on the TDS sensor board | Probe is connected to A and B lines with appropriate ground reference |  |
 | 2 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Disconnect 3.3V pin | Board remains unpowered until 12V is applied |  |
 | 3 | Connect ST-Link SWCLK, SWDIO, and GND pins to the UUT on connector J2. Do not conect the 3.3V pin | Board remains unpowered until 12V is applied |  |
 | 4 | Connect the USB-RS485 Converter A, B, and GND rails to the UUT on connector J4. Connect the USB interface end to your PC. | Board remains unpowered until 12V is applied |  |
 | 5 | Flash Modbus RTU slave driver code with a 9600 baud rate (use a release build, not debug build). | Release build is successfully flashed to the board successfully with no errors |  |
 | 6 | Open the Modbus Master SW tool on your PC. Connect to the corresponding COM port with Baud=9600, Parity = None, Data Bits = 8, and Stop Bits = 1, Slave ID = 1. These settings should match you UART settings on the UUT's MCU. | Log shows "Connected using RTU to COMX", Stable connection. |  |
-| 7 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
-| 8 | Set oscilloscope to 500mV/Div, trigger level to 2.5V. Setup for single capture. | Oscilloscope captures ,modbus response frame from the TDS module |  |
-| 9 | Measure the spacing between UART frames (11-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
+| 7 | Select "read input register" in functions and set Poll to 4000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
+| 8 | Set oscilloscope to 2V/Div, 1ms/Div, trigger level to 2.5V, rising edge on CH2. Setup for normal capture, with 12ms holdoff. Press Stop on the second frame to display. | Oscilloscope captures modbus response frame from the TDS module and not master transmit frame. Verify bits.|  |
+| 9 | Measure the spacing between UART frames (10-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
 | 10 | Measure baud rate | Measured Baud Rate is between 9504 and 9696 |  |
-| 11 | Measure the RS-485 voltage levels | voltage levels should be 0V and 5V |  |
-| 12 | Measure the difference between the magnitudes of RS485 A-B and B-A | magnitude difference between A-B and B-A should be less than 200mV |  |
+| 11 | Measure the RS-485 voltage levels | voltage driver differential should be between +-1.5V to +-6V |  |
+| 12 | Measure the common mode voltage | Common Mode Voltage between -7V to +12V |  |
 | 13 | Flash Modbus RTU slave driver code with a 19200 baud rate (use a release build, not debug build). | Release build is successfully flashed to the board successfully with no errors |  |
 | 14 | Open the Modbus Master SW tool on your PC. Connect to the corresponding COM port with Baud=19200, Parity = None, Data Bits = 8, and Stop Bits = 1, Slave ID = 1. These settings should match you UART settings on the UUT's MCU. | Log shows "Connected using RTU to COMX", Stable connection. |  |
 | 15 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
-| 16 | Set oscilloscope to 500mV/Div, trigger level to 2.5V. Setup for single capture. | Oscilloscope captures ,modbus response frame from the TDS module |  |
-| 17 | Measure the spacing between UART frames (11-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
+| 16 | Set oscilloscope to 2V/Div, 500us/Div, trigger level to 2.5V, rising edge on CH2. Setup for normal capture, with 8ms holdoff. Press Stop on the second frame to display. | Oscilloscope captures modbus response frame from the TDS module and not master transmit frame. Verify bits.|  |
+| 17 | Measure the spacing between UART frames (10-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
 | 18 | Measure baud rate | Measured Baud Rate is between 19008 and 19392 |  |
-| 19 | Measure the RS-485 voltage levels | voltage levels should be 0V and 5V |  |
-| 20 | Measure the difference between the magnitudes of RS485 A-B and B-A | magnitude difference between A-B and B-A should be less than 200mV |  |
+| 19 | Measure the RS-485 voltage levels | voltage driver differential should be between +-1.5V to +-6V |  |
+| 20 | Measure the common mode voltage | Common Mode Voltage between -7V to +12V |  |
 | 21 | Flash Modbus RTU slave driver code with a 1200 baud rate (use a release build, not debug build). | Release build is successfully flashed to the board successfully with no errors |  |
 | 22 | Open the Modbus Master SW tool on your PC. Connect to the corresponding COM port with Baud=1200, Parity = None, Data Bits = 8, and Stop Bits = 1, Slave ID = 1. These settings should match you UART settings on the UUT's MCU. | Log shows "Connected using RTU to COMX", Stable connection. |  |
 | 23 | Select "read input register" in functions and set Poll to 1000 and check the box to activate polling. Set Start Address to 0. Set Size to 1. Click Apply button| Log shows "Read succeeded: Function Code: 4." |  |
-| 24 | Set oscilloscope to 500mV/Div, trigger level to 2.5V. Setup for single capture. | Oscilloscope captures ,modbus response frame from the TDS module |  |
-| 25 | Measure the spacing between UART frames (11-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
+| 24 | Set oscilloscope to 2V/Div, 5ms/Div, trigger level to 2.5V, rising edge on CH2. Setup for normal capture, with 70ms holdoff. Press Stop on the second frame to display. | Oscilloscope captures modbus response frame from the TDS module and not master transmit frame. Verify bits.|  |
+| 25 | Measure the spacing between UART frames (10-bit Modbus Characters) | spacing between character frames are less than 1.5 characters long |  |
 | 26 | Measure baud rate | Measured Baud Rate is between 1188 and 1212 |  |
-| 27 | Measure the RS-485 voltage levels | voltage levels should be 0V and 5V |  |
-| 28 | Measure the difference between the magnitudes of RS485 A-B and B-A | magnitude difference between A-B and B-A should be less than 200mV |  |
+| 27 | Measure the RS-485 voltage levels | voltage driver differential should be between +-1.5V to +-6V |  |
+| 28 | Measure the common mode voltage | Common Mode Voltage between -7V to +12V |  |
 
 ### Notes
 
