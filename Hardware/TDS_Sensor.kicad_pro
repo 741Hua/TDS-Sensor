@@ -76,20 +76,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "lib_footprint_mismatch|144480000|53181000|c2918456-a213-4ccf-9fcc-5018707591c2|00000000-0000-0000-0000-000000000000",
-          "Footprint Intentionally Modified"
-        ],
-        [
-          "lib_footprint_mismatch|145750000|132853000|95a3437c-370f-41a3-a831-63b0a31dde27|00000000-0000-0000-0000-000000000000",
-          "Footprint Intentionally Modified"
-        ],
-        [
-          "lib_footprint_mismatch|155750000|132853000|a32dd1ea-cf0c-4094-8a74-d40197def068|00000000-0000-0000-0000-000000000000",
-          "Footprint Intentionally Modified"
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -180,11 +167,11 @@
       },
       "teardrop_options": [
         {
-          "td_onpthpad": true,
+          "td_onpthpad": false,
           "td_onroundshapesonly": false,
-          "td_onsmdpad": true,
-          "td_ontrackend": false,
-          "td_onvia": true
+          "td_onsmdpad": false,
+          "td_ontrackend": true,
+          "td_onvia": false
         }
       ],
       "teardrop_parameters": [
@@ -226,6 +213,7 @@
         0.0,
         0.15,
         0.2032,
+        0.508,
         0.8
       ],
       "tuning_pattern_settings": {
@@ -273,7 +261,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "A"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -735,6 +723,14 @@
       "version": 1
     },
     "net_format_name": "",
+    "ngspice": {
+      "fix_include_paths": true,
+      "meta": {
+        "version": 0
+      },
+      "model_mode": 4,
+      "workbook_filename": ""
+    },
     "page_layout_descr_file": "",
     "plot_directory": "",
     "reuse_designators": true,
@@ -754,7 +750,7 @@
         "uuid": "13d9a130-3801-4bb7-b9dd-5599c9c93fdf"
       }
     ],
-    "used_designators": "",
+    "used_designators": "U3,V1,#PWR57,IC7",
     "variants": []
   },
   "sheets": [
