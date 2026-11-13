@@ -1,0 +1,108 @@
+(footprint "Custom_Wire_Solder_Pad_4POS"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "${REFERENCE}"
+		(at 3 0 270)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "8b2a96e0-34d5-4ee9-a3b7-95467133dc9d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.153)
+			)
+		)
+	)
+	(property "Value" "Conn_01x04_Pin"
+		(at -5 0 270)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "95fe0465-9671-4ef1-9660-cd2eead10d57")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.153)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "53cc4b75-89cb-4ae2-a3a1-1c8d48a99ab2")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Generic connector, single row, 01x04, script generated"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "fffa1ef0-620b-4a26-8b67-020a8d33fee0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property ki_fp_filters "Connector*:*_1x??_*")
+	(sheetname "/")
+	(sheetfile "TDS_Sensor.kicad_sch")
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_text user "${REFERENCE}"
+		(at -3 0 270)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "38ddbc98-ed86-49f9-937b-34305f66ab40")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.153)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at 0 -3.5625)
+		(size 4 1.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.15)
+		(uuid "439bf0a4-9e3e-4579-bace-333256e3c963")
+	)
+	(pad "2" smd roundrect
+		(at 0 -1.1875)
+		(size 4 1.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.15)
+		(uuid "9c471f04-d0ff-4bc1-b9c7-6e2ed0dac403")
+	)
+	(pad "3" smd roundrect
+		(at 0 1.1875)
+		(size 4 1.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.15)
+		(uuid "bbab38c3-ac3c-492e-bf6e-0af9126ef989")
+	)
+	(pad "4" smd roundrect
+		(at 0 3.5625)
+		(size 4 1.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.15)
+		(uuid "474adc4f-003f-4445-97a3-cc08e19425b5")
+	)
+	(group ""
+		(uuid "2061b5a8-0cdd-4db6-bc3b-ceb309e4290e")
+		(members "439bf0a4-9e3e-4579-bace-333256e3c963" "474adc4f-003f-4445-97a3-cc08e19425b5"
+			"9c471f04-d0ff-4bc1-b9c7-6e2ed0dac403" "bbab38c3-ac3c-492e-bf6e-0af9126ef989"
+		)
+	)
+	(embedded_fonts no)
+)

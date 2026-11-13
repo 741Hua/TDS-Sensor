@@ -1,0 +1,233 @@
+(footprint "HDRRA2W64P0X254_1X2_508X250X288P"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "PH1RB-02-UA")
+	(tags "Connector")
+	(property "Value" "EC Probe Connector"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "0c11f258-7e2a-4008-9511-003d6b965420")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4535592e-bc77-4aae-9950-8547a202766e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Generic connector, single row, 01x02, script generated"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "347d9dfd-68b2-414c-84d9-50561887a8f3")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Manufacturer_Part_Number" "PH1RB-02-UA"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a80999bb-693a-4ebe-9d5a-4e2b430355c4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Reference" "J3"
+		(at 4.2672 2.4892 0)
+		(layer "F.SilkS")
+		(uuid "3e6f1d06-b9ad-4f6d-8d4a-c54b5df1885a")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property ki_fp_filters "Connector*:*_1x??_*")
+	(sheetname "/")
+	(sheetfile "TDS_Sensor.kicad_sch")
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -2.7305 0.322)
+		(end -2.7305 3.203)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "fb0e7ff2-c19b-454c-b331-bc48d33c9668")
+	)
+	(fp_line
+		(start 2.7305 0.322)
+		(end -2.7305 0.322)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "19b4b7a5-a80e-4800-ae1a-8a57b4056d69")
+	)
+	(fp_line
+		(start 2.7305 4.603)
+		(end 2.7305 0.322)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f58999ee-422c-4fc7-a6a1-fa802a3e3729")
+	)
+	(fp_line
+		(start -2.9805 -5.928)
+		(end 2.9805 -5.928)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "95ecc5f2-7ecb-49ea-8fd7-2a9119bcbf38")
+	)
+	(fp_line
+		(start -2.9805 5.928)
+		(end -2.9805 -5.928)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "527ec9dd-c169-4b78-982b-9e5413fc78c9")
+	)
+	(fp_line
+		(start 2.9805 -5.928)
+		(end 2.9805 5.928)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "6b8ff96c-db9c-42d2-baf2-2108be25a7eb")
+	)
+	(fp_line
+		(start 2.9805 5.928)
+		(end -2.9805 5.928)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f1c687d3-d53a-401e-9904-970494863f23")
+	)
+	(fp_line
+		(start -2.7305 0.322)
+		(end 2.7305 0.322)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "db5d169d-6fe8-4f3e-a587-2235195278b0")
+	)
+	(fp_line
+		(start -2.7305 3.203)
+		(end -2.7305 0.322)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "b69eb239-6d55-434a-a6b0-498987eb74ed")
+	)
+	(fp_line
+		(start 2.7305 0.322)
+		(end 2.7305 3.203)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0852681c-67a3-4c0d-af1f-3180cf9304b0")
+	)
+	(fp_line
+		(start 2.7305 3.203)
+		(end -2.7305 3.203)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3fd3a170-d84e-46ad-9054-67aa814ee7fa")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 7.5 0)
+		(layer "F.Fab")
+		(uuid "0d734378-80fa-460f-a8d5-1ae462f43c27")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(pad "1" thru_hole rect
+		(at 1.2705 4.603)
+		(size 1.65 1.65)
+		(drill 1.1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "a2057d9d-29cb-4b2e-9e34-646de88c4a1a")
+	)
+	(pad "2" thru_hole circle
+		(at -1.2695 4.603)
+		(size 1.65 1.65)
+		(drill 1.1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "b8d1ba22-26e8-406c-84d9-4e12d45019a4")
+	)
+	(group ""
+		(uuid "ba033007-080c-4d1d-b7c0-275654cdf790")
+		(members "0852681c-67a3-4c0d-af1f-3180cf9304b0" "19b4b7a5-a80e-4800-ae1a-8a57b4056d69"
+			"3fd3a170-d84e-46ad-9054-67aa814ee7fa" "527ec9dd-c169-4b78-982b-9e5413fc78c9"
+			"6b8ff96c-db9c-42d2-baf2-2108be25a7eb" "95ecc5f2-7ecb-49ea-8fd7-2a9119bcbf38"
+			"a2057d9d-29cb-4b2e-9e34-646de88c4a1a" "b69eb239-6d55-434a-a6b0-498987eb74ed"
+			"b8d1ba22-26e8-406c-84d9-4e12d45019a4" "db5d169d-6fe8-4f3e-a587-2235195278b0"
+			"f1c687d3-d53a-401e-9904-970494863f23" "f58999ee-422c-4fc7-a6a1-fa802a3e3729"
+			"fb0e7ff2-c19b-454c-b331-bc48d33c9668"
+		)
+	)
+	(embedded_fonts no)
+	(model "C:\\Users\\jairo\\OneDrive\\Documents\\KiCad\\SamacSys_Parts.3dshapes\\PH1RB-02-UA.stp"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
