@@ -10273,7 +10273,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:QFP50P900X900X160-48N"
+		(property "Footprint" "Footprints:QFP50P900X900X160-48N"
 			(at 132.08 205.41 0)
 			(hide yes)
 			(show_name no)
@@ -12702,7 +12702,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:SOIC127P600X175-16N"
+		(property "Footprint" "Footprints:SOIC127P600X175-16N"
 			(at 274.32 195.25 0)
 			(hide yes)
 			(show_name no)
@@ -13249,7 +13249,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:SOT95P280X145-5N"
+		(property "Footprint" "Footprints:SOT95P280X145-5N"
 			(at 255.27 125.4 0)
 			(hide yes)
 			(show_name no)
@@ -13586,7 +13586,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:LEDC1608X90N"
+		(property "Footprint" "Footprints:LEDC1608X90N"
 			(at 52.07 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -15257,7 +15257,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SamacSys:SOIC127P600X175-14N"
+		(property "Footprint" "Footprints:SOIC127P600X175-14N"
 			(at 273.05 240.97 0)
 			(hide yes)
 			(show_name no)
@@ -15592,7 +15592,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:SOT95P240X110-3N"
+		(property "Footprint" "Footprints:SOT95P240X110-3N"
 			(at 463.22 166.37 0)
 			(hide yes)
 			(show_name no)
@@ -16563,7 +16563,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:SOP65P490X110-8N"
+		(property "Footprint" "Footprints:SOP65P490X110-8N"
 			(at 53.34 337.49 0)
 			(hide yes)
 			(show_name no)
@@ -18522,7 +18522,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:HDRRA2W64P0X254_1X2_508X250X288P"
+		(property "Footprint" "Footprints:HDRRA2W64P0X254_1X2_508X250X288P"
 			(at 269.24 255.27 0)
 			(hide yes)
 			(show_name no)
@@ -19312,7 +19312,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:LEDC1608X90N"
+		(property "Footprint" "Footprints:LEDC1608X90N"
 			(at 114.3 30.48 0)
 			(hide yes)
 			(show_name no)
@@ -19599,7 +19599,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Cust_Library:Custom_Wire_Solder_Pad_4POS"
+		(property "Footprint" "Footprints:Custom_Wire_Solder_Pad_4POS"
 			(at 187.96 248.92 0)
 			(hide yes)
 			(show_name no)
@@ -20602,7 +20602,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:ECS801030BCKMTR"
+		(property "Footprint" "Footprints:ECS801030BCKMTR"
 			(at 152.07 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -21454,7 +21454,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:BLM18SP221SN1B"
+		(property "Footprint" "Footprints:BLM18SP221SN1B"
 			(at 66.37 16.51 0)
 			(hide yes)
 			(show_name no)

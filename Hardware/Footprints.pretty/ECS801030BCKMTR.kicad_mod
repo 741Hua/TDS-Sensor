@@ -325,7 +325,7 @@
 		(uuid "b4188b41-66b5-4813-bf1f-75e17e4c52a5")
 	)
 	(embedded_fonts no)
-	(model "C:\\Users\\jairo\\OneDrive\\Documents\\KiCad\\SamacSys_Parts.3dshapes\\ECS-80-10-30B-CKM-TR.stp"
+	(model "${KIPRJMOD}\\3DModels.3dshapes\\ECS-80-10-30B-CKM-TR.stp"
 		(offset
 			(xyz 0 0 0)
 		)

@@ -22,7 +22,7 @@
   (fp_line (start 0 -0.3) (end 0 0.3) (layer F.SilkS) (width 0.2))
   (pad 1 smd rect (at -0.675 -0 0) (size 0.650 0.700) (layers F.Cu F.Paste F.Mask))
   (pad 2 smd rect (at 0.675 -0 0) (size 0.650 0.700) (layers F.Cu F.Paste F.Mask))
-  (model "C:\\Users\\jairo\\OneDrive\\Documents\\SamacSys\\SamacSys_Parts.3dshapes\\BLM18BD121SH1D.stp"
+  (model "${KIPRJMOD}\\3DModels.3dshapes\\BLM18BD121SH1D.stp"
     (at (xyz 0 -0.015748031730727 0.015748031730727))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))

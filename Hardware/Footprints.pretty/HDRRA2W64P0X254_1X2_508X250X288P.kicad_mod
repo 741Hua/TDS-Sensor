@@ -219,7 +219,7 @@
 		)
 	)
 	(embedded_fonts no)
-	(model "C:\\Users\\jairo\\OneDrive\\Documents\\KiCad\\SamacSys_Parts.3dshapes\\PH1RB-02-UA.stp"
+	(model "${KIPRJMOD}\\3DModels.3dshapes\\PH1RB-02-UA.stp"
 		(offset
 			(xyz 0 0 0)
 		)
